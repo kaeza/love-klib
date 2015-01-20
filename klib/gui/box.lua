@@ -17,14 +17,30 @@ local HBox = classes.class(m, "HBox", Box)
 function HBox:layout_items()
 	local w, h = self.w, self.h
 	local ml, mt, mr, mb = self:get_margins()
-	local hm = ml + mr
-	local vm = mt + mb
 	local spc = self.spacing
-	w = w - (spc * (#self.children - 1)) - hm
-	h = h - vm
-	local spi = w / #self.children
+	w = w - (spc * (#self.children - 1)) - ml - mr
+	h = h - mt - mb
+	local expanders = 0
 	for index, item in ipairs(self.children) do
-		item:reshape((spi+spc)*(index-1)+ml, mt, spi, h)
+		if item.layout and item.layout.expand then
+			expanders = expanders + 1
+		else
+			local iw, ih = item:get_min_size()
+			w = w - iw
+		end
+	end
+	local expander_w = w / expanders
+	local x = ml
+	for index, item in ipairs(self.children) do
+		local iw
+		if item.layout and item.layout.expand then
+			iw = expander_w
+		else
+			local tw, th = item:get_min_size()
+			iw = tw
+		end
+		item:reshape(x, mt, iw, h)
+		x = x + iw + spc
 	end
 end
 
@@ -45,14 +61,30 @@ local VBox = classes.class(m, "VBox", Box)
 function VBox:layout_items()
 	local w, h = self.w, self.h
 	local ml, mt, mr, mb = self:get_margins()
-	local hm = ml + mr
-	local vm = mt + mb
 	local spc = self.spacing
-	w = w - hm
-	h = h - (spc * (#self.children - 1)) - vm
-	local spi = h / #self.children
+	w = w - ml - mr
+	h = h - (spc * (#self.children - 1)) - mt - mb
+	local expanders = 0
 	for index, item in ipairs(self.children) do
-		item:reshape(ml, (spi+spc)*(index-1)+mt, w, spi)
+		if item.layout and item.layout.expand then
+			expanders = expanders + 1
+		else
+			local iw, ih = item:get_min_size()
+			h = h - ih
+		end
+	end
+	local expander_h = h / expanders
+	local y = mt
+	for index, item in ipairs(self.children) do
+		local ih
+		if item.layout and item.layout.expand then
+			ih = expander_h
+		else
+			local tw, th = item:get_min_size()
+			ih = th
+		end
+		item:reshape(ml, y, w, ih)
+		y = y + ih + spc
 	end
 end
 
@@ -105,7 +137,6 @@ function Grid:set_spacing(hs, vs)
 	if vs then self.vspacing = vs end
 end
 
---[[
 function Grid:get_preferred_size()
 	local colw, rowh = { }, { }
 	for index, item in ipairs(self.children) do
@@ -119,6 +150,5 @@ function Grid:get_preferred_size()
 	rowh = math_max(unpack(rowh))
 	return colw * self.cols, rowh * self.rows
 end
-]]
 
 return m
