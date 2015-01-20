@@ -33,4 +33,6 @@ classes.import(m, "klib.gui.dialog.aboutdialog")
 classes.import(m, "klib.gui.graphics")
 classes.import(m, "klib.gui.theme")
 
+classes.import(m, "klib.gui.mixins")
+
 return m
