@@ -11,6 +11,7 @@ local m = classes.module "klib.gui.label"
 local Label = classes.class(m, "Label", { Widget, TextMixin })
 
 function Label:init(text)
+	classes.check_types(2, 1, "s", text)
 	Widget.init(self)
 	self.text = text
 end
