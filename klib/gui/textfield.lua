@@ -209,6 +209,12 @@ function TextField:index_to_pos(index)
 	return x, 0
 end
 
+function TextField:calc_min_size()
+	local font = self:get_font()
+	local ml, mt, mr, mb = self:get_margins()
+	return 96, font:getHeight("Ay") + mt + mb
+end
+
 function TextField:on_commit(text)
 end
 
