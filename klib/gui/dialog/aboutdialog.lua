@@ -4,7 +4,7 @@ local classes = require "klib.classes"
 local Dialog = require("klib.gui.dialog").Dialog
 local Button = require("klib.gui.button").Button
 local Label = require("klib.gui.label").Label
-local Composite = require("klib.gui.composite").Composite
+local Compound = require("klib.gui.compound").Compound
 local Notebook = require("klib.gui.notebook").Notebook
 local ListBox = require("klib.gui.listbox").ListBox
 
@@ -61,7 +61,7 @@ function AboutDialog:init(title, appinfo)
 	function bok:on_activate()
 		dlg:close()
 	end
-	local client = Composite({ nlbl, dlbl, vlbl, nb, bok })
+	local client = Compound({ nlbl, dlbl, vlbl, nb, bok })
 	function client:layout_items()
 		local w, h = self.w, self.h
 		local _, nlh, dlh, vlh

@@ -2,12 +2,12 @@
 local classes = require "klib.classes"
 
 local Button = require("klib.gui.button").Button
-local Composite = require("klib.gui.composite").Composite
+local Compound = require("klib.gui.compound").Compound
 local HBox = require("klib.gui.box").HBox
 
 local m = classes.module "klib.gui.notebook"
 
-local Notebook = classes.class(m, "Notebook", Composite)
+local Notebook = classes.class(m, "Notebook", Compound)
 
 -- Private fields.
 local p_buttonbar = { }
@@ -17,7 +17,7 @@ function Notebook:init()
 	local bb = HBox({ })
 	self.pages = { }
 	self[p_buttonbar] = bb
-	Composite.init(self, { bb })
+	Compound.init(self, { bb })
 end
 
 function Notebook:add_page(id, title, widget, visible)

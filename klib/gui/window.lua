@@ -4,7 +4,7 @@ local classes = require "klib.classes"
 local Widget = require("klib.gui.widget").Widget
 local Label = require("klib.gui.label").Label
 local Button = require("klib.gui.button").Button
-local Composite = require("klib.gui.composite").Composite
+local Compound = require("klib.gui.compound").Compound
 local TextMixin = require("klib.gui.mixins").TextMixin
 
 local gui_utils = require("klib.gui.utils")
@@ -13,7 +13,7 @@ local math_max, math_min = math.max, math.min
 
 local m = classes.module "klib.gui.window"
 
-local Window = classes.class(m, "Window", { Composite, TextMixin })
+local Window = classes.class(m, "Window", { Compound, TextMixin })
 
 -- Public fields.
 Window.resizable = true
@@ -101,13 +101,13 @@ function Window:init(text, client)
 	self[p_buttons] = { bclose, bmax, bmin, bhelp }
 	self.state = "res"
 	self[p_childwindows] = {}
-	Composite.init(self, { client, bclose, bmax, bmin, bhelp })
+	Compound.init(self, { client, bclose, bmax, bmin, bhelp })
 	self:set_margins(4, 4, 4, 4)
 	self:resize_client(client:get_min_size())
 end
 
 function Window:update(dtime)
-	Composite.update(self, dtime)
+	Compound.update(self, dtime)
 	self[p_buttons][2].visible = self.resizable
 	self[p_buttons][3].visible = self.resizable
 	self[p_buttons][4].visible = self.has_help
@@ -151,7 +151,7 @@ local function Window_subhit(self, x, y)
 end
 
 function Window:on_mouse_press(x, y, btn, click_count)
-	Composite.on_mouse_press(self, x, y, btn, click_count)
+	Compound.on_mouse_press(self, x, y, btn, click_count)
 	if btn == "l" then
 		local sx, sy, w, h = self:get_rect()
 		local tbh = self.titlebar_height
@@ -180,7 +180,7 @@ function Window:on_mouse_press(x, y, btn, click_count)
 end
 
 function Window:on_mouse_release(x, y, btn, click_count)
-	Composite.on_mouse_release(self, x, y, btn, click_count)
+	Compound.on_mouse_release(self, x, y, btn, click_count)
 	if btn == "l" then
 		self[p_drag_x], self[p_drag_y] = nil
 		self[p_drag_action] = nil
@@ -189,12 +189,12 @@ function Window:on_mouse_release(x, y, btn, click_count)
 end
 
 function Window:on_mouse_leave()
-	Composite.on_mouse_leave(self)
+	Compound.on_mouse_leave(self)
 	love.mouse.setCursor()
 end
 
 function Window:on_mouse_move(x, y)
-	Composite.on_mouse_move(self, x, y)
+	Compound.on_mouse_move(self, x, y)
 	if (not self[p_drag_action]) or (self.state == "max") then
 		local action = Window_subhit(self, x, y)
 		if action == "move" or (not self.resizable) then

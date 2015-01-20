@@ -1,13 +1,13 @@
 
 local classes = require "klib.classes"
 
-local Composite = require("klib.gui.composite").Composite
+local Compound = require("klib.gui.compound").Compound
 
 local m = classes.module "klib.gui.box"
 
 local math_max, math_min, math_floor = math.max, math.min, math.floor
 
-local Box = classes.class("Box", Composite)
+local Box = classes.class("Box", Compound)
 
 -- Public fields.
 Box.spacing = 0

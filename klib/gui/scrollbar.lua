@@ -1,14 +1,14 @@
 
 local classes = require "klib.classes"
 
-local Composite = require("klib.gui.composite").Composite
+local Compound = require("klib.gui.compound").Compound
 local Button = require("klib.gui.button").Button
 
 local math_max, math_min = math.max, math.min
 
 local m = classes.module "klib.gui.listbox"
 
-local ScrollBar = classes.class(m, "ScrollBar", Composite)
+local ScrollBar = classes.class(m, "ScrollBar", Compound)
 
 -- Private fields.
 local p_tl_button = { }
@@ -83,7 +83,7 @@ function ScrollBar:init(max, val, viewsize, direction)
 	self[p_tl_button] = tlb
 	self[p_br_button] = brb
 	self[p_handle] = hnd
-	Composite.init(self, { tlb, brb, hnd })
+	Compound.init(self, { tlb, brb, hnd })
 end
 
 function ScrollBar:layout_items()

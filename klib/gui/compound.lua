@@ -5,13 +5,13 @@ local Widget = require("klib.gui.widget").Widget
 
 local gui_core = require "klib.gui.core"
 
-local m = classes.module "klib.gui.composite"
+local m = classes.module "klib.gui.compound"
 
 local math_max, math_min = math.max, math.min
 
-local Composite = classes.class(m, "Composite", Widget)
+local Compound = classes.class(m, "Compound", Widget)
 
-function Composite:init(children)
+function Compound:init(children)
 	Widget.init(self)
 	classes.check_types(2, 1, "t", children)
 	self.children = children
@@ -27,22 +27,22 @@ function Composite:init(children)
 	end
 end
 
-function Composite:set_margins(l, t, r, b)
+function Compound:set_margins(l, t, r, b)
 	Widget.set_margins(self, l, t, r, b)
 	self:layout_items()
 end
 
-function Composite:resize(w, h)
+function Compound:resize(w, h)
 	Widget.resize(self, w, h)
 	self:layout_items()
 end
 
-function Composite:reshape(x, y, w, h)
+function Compound:reshape(x, y, w, h)
 	Widget.reshape(self, x, y, w, h)
 	self:layout_items()
 end
 
-function Composite:paint()
+function Compound:paint()
 	Widget.paint(self)
 	for _, item in ipairs(self.children) do
 		local sx, sy = gui_core.get_scale()
@@ -56,24 +56,24 @@ function Composite:paint()
 	end
 end
 
-function Composite:update(dtime)
+function Compound:update(dtime)
 	Widget.update(self, dtime)
 	for _, item in ipairs(self.children) do
 		item:update(dtime)
 	end
 end
 
-function Composite:resize(w, h)
+function Compound:resize(w, h)
 	Widget.resize(self, w, h)
 	self:layout_items()
 end
 
-function Composite:reshape(x, y, w, h)
+function Compound:reshape(x, y, w, h)
 	Widget.reshape(self, x, y, w, h)
 	self:layout_items()
 end
 
-function Composite:hit_test(x, y)
+function Compound:hit_test(x, y)
 	local self_hit = Widget.hit_test(self, x, y)
 	if self_hit then
 		local sx, sy = self.x, self.y
@@ -89,13 +89,13 @@ function Composite:hit_test(x, y)
 	return self_hit
 end
 
-function Composite:on_remove()
+function Compound:on_remove()
 	for _, item in ipairs(self.children) do
 		item:on_remove()
 	end
 end
 
-function Composite:layout_items()
+function Compound:layout_items()
 end
 
 return m

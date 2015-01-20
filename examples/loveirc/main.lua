@@ -91,7 +91,7 @@ local function create_channel_tab(window, channel)
 		window:get_channel_tab(self.items[ss])
 		window:show_channel_tab(self.items[ss])
 	end
-	tab = gui.Composite({ chatlist, chatfield, sendbtn, userlist })
+	tab = gui.Compound({ chatlist, chatfield, sendbtn, userlist })
 	sendbtn:resize(sendbtn:get_preferred_size())
 	function tab:layout_items()
 		local w, h = self.w, self.h
@@ -152,7 +152,7 @@ function MainWindow:init(address, port, nickname, username, realname)
 		if not ss then return end
 		wnd:show_channel(self.items[ss])
 	end
-	local client = gui.Composite({ chanlist })
+	local client = gui.Compound({ chanlist })
 	function client:layout_items()
 		local w, h = self.w, self.h
 		chanlist:reshape(0, 0, 128, h)

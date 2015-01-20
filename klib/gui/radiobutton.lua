@@ -4,7 +4,7 @@ local classes = require "klib.classes"
 local gui_utils = require "klib.gui.utils"
 
 local Button = require("klib.gui.button").Button
-local Composite = require("klib.gui.composite").Composite
+local Compound = require("klib.gui.compound").Compound
 
 local m = classes.module "klib.gui.radiobutton"
 
@@ -31,7 +31,7 @@ end
 
 function RadioButton:select()
 	local p = self.parent
-	if classes.isinstance(p, Composite) then
+	if classes.isinstance(p, Compound) then
 		for _, item in ipairs(p.children) do
 			if (item ~= self) and classes.isinstance(item, RadioButton)
 					and item.value then

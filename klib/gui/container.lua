@@ -1,17 +1,17 @@
 
 local classes = require "klib.classes"
 
-local Composite = require("klib.gui.composite").Composite
+local Compound = require("klib.gui.compound").Compound
 
 local m = classes.module "klib.gui.container"
 
-local Container = classes.class(m, "Container", Composite)
+local Container = classes.class(m, "Container", Compound)
 
 -- Private fields.
 local p_id2child = { }
 
 function Container:init()
-	Composite.init(self, { })
+	Compound.init(self, { })
 end
 
 function Container:insert(pos, widget)

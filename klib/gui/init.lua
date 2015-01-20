@@ -14,7 +14,7 @@ classes.import(m, "klib.gui.textfield")
 classes.import(m, "klib.gui.listbox")
 classes.import(m, "klib.gui.scrollbar")
 
-classes.import(m, "klib.gui.composite")
+classes.import(m, "klib.gui.compound")
 classes.import(m, "klib.gui.container")
 classes.import(m, "klib.gui.window")
 classes.import(m, "klib.gui.desktop")

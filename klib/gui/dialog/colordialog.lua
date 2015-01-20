@@ -4,7 +4,7 @@ local classes = require "klib.classes"
 local Dialog = require("klib.gui.dialog").Dialog
 local Button = require("klib.gui.button").Button
 local Label = require("klib.gui.label").Label
-local Composite = require("klib.gui.composite").Composite
+local Compound = require("klib.gui.compound").Compound
 local Widget = require("klib.gui.widget").Widget
 local Grid = require("klib.gui.box").Grid
 local ScrollBar = require("klib.gui.scrollbar").ScrollBar
@@ -68,7 +68,7 @@ local function create_slider(dlg, text, c, cc)
 		love.graphics.setColor(unpack(bg))
 		love.graphics.rectangle("line", x, y, self.w * v / 255, h)
 	end
-	local comp = Composite({ lbl, sld, ent })
+	local comp = Compound({ lbl, sld, ent })
 	function comp:layout_items()
 		local w, h = self.w, self.h
 		lbl:reshape(0, 0, 64, 20)
@@ -111,7 +111,7 @@ function ColorDialog:init(title, default)
 		love.graphics.setColor(dlg[p_color]:unpack())
 		love.graphics.rectangle("fill", x, y, w, h)
 	end
-	local client = Composite({ cwid, sb_r, sb_g, sb_b, b_ok, b_cl })
+	local client = Compound({ cwid, sb_r, sb_g, sb_b, b_ok, b_cl })
 	function client:layout_items()
 		local w, h = self.w, self.h
 		local sbw, sbh = sb_r:get_preferred_size()

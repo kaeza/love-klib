@@ -5,7 +5,7 @@ local Dialog = require("klib.gui.dialog").Dialog
 local Button = require("klib.gui.button").Button
 local ListBox = require("klib.gui.listbox").ListBox
 local TextField = require("klib.gui.textfield").TextField
-local Composite = require("klib.gui.composite").Composite
+local Compound = require("klib.gui.compound").Compound
 
 local math_max, math_min = math.max, math.min
 
@@ -60,7 +60,7 @@ function FileDialog:init(title, mode, path, filter)
 	local dl = ListBox()
 	local fl = ListBox()
 	local tf = TextField("")
-	local client = Composite({ bok, bcl, dl, fl, tf })
+	local client = Compound({ bok, bcl, dl, fl, tf })
 	function client:layout_items()
 		local w, h = self.w, self.h
 		local halfw = w/2

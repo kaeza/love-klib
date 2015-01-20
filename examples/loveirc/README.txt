@@ -7,4 +7,4 @@ This example shows how to:
 
 * Use some widgets such as `ListBox`es, `Button`s, and `TextField`s.
 * Validate text input.
-* Create compound widgets using `Composite`.
+* Create compound widgets using `Compound`.

@@ -5,7 +5,7 @@ local gui_core = require "klib.gui.core"
 
 local Object = classes.Object
 
-local Composite = require("klib.gui.composite").Composite
+local Compound = require("klib.gui.compound").Compound
 local ScrollBar = require("klib.gui.scrollbar").ScrollBar
 local Label = require("klib.gui.widget").Label
 --local TextMixin = require("klib.gui.mixins").TextMixin
@@ -42,7 +42,7 @@ function SimpleListBoxItem:get_size()
 	return gui_utils.text_size(self.text or "")
 end
 
-local ListBox = classes.class(m, "ListBox", Composite)
+local ListBox = classes.class(m, "ListBox", Compound)
 
 -- Public fields.
 ListBox.selection_type = "single"
@@ -62,7 +62,7 @@ function ListBox:init()
 	end
 	self.view_offset = 0
 	self[p_scrollbar] = sb
-	Composite.init(self, { sb })
+	Compound.init(self, { sb })
 end
 
 function ListBox:insert(pos, item)
@@ -127,7 +127,7 @@ function ListBox:find_items_iter(pattern, is_regex)
 end
 
 function ListBox:on_mouse_press(x, y, btn)
-	Composite.on_mouse_press(self, x, y, btn)
+	Compound.on_mouse_press(self, x, y, btn)
 	if (btn == "l") and (self:hit_test(x, y) == self) then
 		local sx, sy = self:get_rect()
 		self[p_clicked] = true
@@ -139,7 +139,7 @@ function ListBox:on_mouse_press(x, y, btn)
 end
 
 function ListBox:on_mouse_release(x, y, btn, click_count)
-	Composite.on_mouse_release(self, x, y, btn, click_count)
+	Compound.on_mouse_release(self, x, y, btn, click_count)
 	if (btn == "l") and (self:hit_test(x, y) == self) then
 		if (click_count == 2) and self.selection_start then
 			self:on_selection_activate(self.selection_start,
@@ -150,7 +150,7 @@ function ListBox:on_mouse_release(x, y, btn, click_count)
 end
 
 function ListBox:on_mouse_move(x, y)
-	Composite.on_mouse_move(self, x, y)
+	Compound.on_mouse_move(self, x, y)
 	if self[p_clicked] and self.got_mouse then
 		local sx, sy = self:get_rect()
 		local ss, se

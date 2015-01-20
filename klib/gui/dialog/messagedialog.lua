@@ -5,7 +5,7 @@ local Widget = require("klib.gui.widget").Widget
 local Dialog = require("klib.gui.dialog").Dialog
 local Button = require("klib.gui.button").Button
 local Label = require("klib.gui.label").Label
-local Composite = require("klib.gui.composite").Composite
+local Compound = require("klib.gui.compound").Compound
 local HBox = require("klib.gui.box").HBox
 local Drawable = require("klib.gui.graphics").Drawable
 
@@ -90,7 +90,7 @@ function MessageDialog:init(title, text, options, icon)
 	local bb = HBox(buttons)
 	bb:set_margins(8, 8, 8, 8)
 	bb.spacing = 4
-	local client = Composite({ lbl, bb, image })
+	local client = Compound({ lbl, bb, image })
 	function client:layout_items()
 		local bbw, bbh = bb:get_min_size()
 		if image then
