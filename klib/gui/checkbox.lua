@@ -9,6 +9,9 @@ local m = classes.module "klib.gui.checkbox"
 
 local CheckBox = classes.class(m, "CheckBox", Button)
 
+-- Public fields.
+CheckBox.value = false
+
 function CheckBox:init(text, value)
 	Button.init(self, text)
 	self.value = value
@@ -20,11 +23,12 @@ function CheckBox:calc_min_size()
 	return w+h+3+ml+mr, h+2+mt+mb
 end
 
-function CheckBox:on_mouse_release(x, y, btn)
-	if (btn == "l") and (self:hit_test(x, y) == self) then
-		self.value = not self.value
-	end
-	Button.on_mouse_release(self, x, y, btn)
+function CheckBox:on_activate()
+	self.value = not self.value
+	self:on_value_change(self.value)
+end
+
+function CheckBox:on_value_change(value)
 end
 
 return m
