@@ -23,6 +23,9 @@ end
 
 local function create_sb_button(val, text)
 	local b = Button(text)
+	function b:calc_min_size()
+		return 1, 1
+	end
 	b.val = val
 	b.on_activate = ScrollBar_button_activate
 	return b
@@ -73,6 +76,9 @@ function ScrollBar:init(max, val, viewsize, direction)
 		if (btn == "l") and sb[p_drag_start] then
 			sb[p_drag_start] = nil
 		end
+	end
+	function hnd:calc_min_size()
+		return 1, 1
 	end
 	self[p_tl_button] = tlb
 	self[p_br_button] = brb
@@ -153,7 +159,7 @@ function ScrollBar:set_value(val, max, viewsize)
 			and (self.val < (self.max - self.viewsize)))
 end
 
-local MINSIZE = 8
+local MINSIZE = 12
 function ScrollBar:calc_min_size()
 	local dir = self.direction or "tb"
 	if (dir == "tb") or (dir == "bt") then
