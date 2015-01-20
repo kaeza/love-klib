@@ -34,12 +34,14 @@ function TextField:get_preferred_size()
 end
 
 function TextField:on_mouse_enter(x, y)
+	Widget.on_mouse_enter(self, x, y)
 	if self.enabled then
 		love.mouse.setCursor(self.edit_cursor)
 	end
 end
 
 function TextField:on_mouse_leave(x, y)
+	Widget.on_mouse_leave(self, x, y)
 	love.mouse.setCursor()
 end
 
