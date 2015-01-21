@@ -19,6 +19,7 @@ classes.import(m, "klib.gui.container")
 classes.import(m, "klib.gui.window")
 classes.import(m, "klib.gui.desktop")
 classes.import(m, "klib.gui.box")
+classes.import(m, "klib.gui.panes")
 
 classes.import(m, "klib.gui.notebook")
 
