@@ -20,6 +20,51 @@ local function msgbox(wnd, message, title, buttons, icon, on_select)
 end
 
 local tests = {
+	{ "Widgets", function(wnd)
+		local desk = wnd:get_root()
+		local buttons = {
+			{ "Button", true, false },
+			{ "Default", true, true },
+			{ "Disabled", false, false },
+			{ "Default+Disabled", false, true },
+		}
+		for i, info in ipairs(buttons) do
+			local b = gui.Button(info[1])
+			b.enabled, b.default = info[2], info[3]
+			buttons[i] = b
+		end
+		local bbar = gui.HBox(buttons)
+		local entry = gui.TextField("TextField")
+		entry:set_min_size(nil, 20)
+		local list = gui.ListBox()
+		list:insert("ListBox")
+		for i = 1, 10 do
+			list:insert("Item "..i)
+		end
+		local nb = gui.Notebook()
+		nb:add_page("page1", "Notebook", gui.Label("asdf\nfoo\nbar"))
+		for i = 2, 5 do
+			nb:add_page("page"..i, "Page "..i, gui.Label("Page "..i.." content"))
+		end
+		nb.layout = { expand=true }
+		local widwnd = gui.Window("Widgets", gui.VBox({
+			gui.Label("Label"),
+			bbar,
+			gui.HBox({
+				gui.CheckBox("Check1", true),
+				gui.CheckBox("Check2", false),
+			}),
+			gui.HBox({
+				gui.RadioButton("Radio1", true),
+				gui.RadioButton("Radio2", false),
+			}),
+			entry,
+			list,
+			nb,
+		}))
+		desk:insert(widwnd)
+		widwnd:center(desk)
+	end },
 	{ "AboutDialog", function(wnd)
 		local desk = wnd:get_root()
 		local ad = gui.AboutDialog("About",
