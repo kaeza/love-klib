@@ -334,7 +334,7 @@ function Window:calc_min_size()
 	local ml, mt, mr, mb = self:get_margins()
 	local cw, ch = self.client:get_min_size()
 	local spc = self.titlebar_spacing
-	return math_max(120, (self.titlebar_height*4) + ml + mr + cw),
+	return math_max(120, (self.titlebar_height*4), cw) + ml + mr,
 			self.titlebar_height + mt + mb + math_max(spc + ch, 0)
 end
 
