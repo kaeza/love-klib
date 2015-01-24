@@ -24,6 +24,43 @@ function m.split_lines(s)
 	return t
 end
 
+function m.split_iter(str, delim, include_empty, max_splits, sep_is_pattern)
+	assert(str and type(str) == "string", type(str))
+	local str_sub, str_find = str.sub, str.find
+	delim = delim or ","
+	max_splits = max_splits or -1
+	local pos, len, seplen = 1, #str, #delim
+	local plain = not sep_is_pattern
+	max_splits = max_splits + 1
+	local yield = coroutine.yield
+	return coroutine.wrap(function()
+		repeat
+			local np, npe = str_find(str, delim, pos, plain)
+			np, npe = (np or (len+1)), (npe or (len+1))
+			if (not np) or (max_splits == 1) then
+				np = len + 1
+				npe = np
+			end
+			local s = str_sub(str, pos, np - 1)
+			if include_empty or (s ~= "") then
+				max_splits = max_splits - 1
+				yield(s)
+			end
+			pos = npe + 1
+		until (max_splits == 0) or (pos > (len + 1))
+	end)
+end
+
+function m.split(str, delim, include_empty, max_splits, sep_is_pattern)
+	local items, n = { }, 0
+	for item in m.split_iter(str, delim, include_empty,
+			max_splits, sep_is_pattern) do
+		n = n + 1
+		items[n] = item
+	end
+	return items
+end
+
 function m.normalize_lines(s)
 	return (s:gsub("\r", "\n"):gsub("\r\n", "\n"):gsub("\r", "\n"))
 end
